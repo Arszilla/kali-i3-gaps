@@ -1,0 +1,7 @@
+#!/bin/sh
+
+git clone --depth 1 https://github.com/ryanoasis/nerd-fonts.git
+
+chmod +x install.sh
+
+./install.sh

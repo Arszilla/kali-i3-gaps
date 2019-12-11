@@ -103,8 +103,8 @@ type = internal/network
 interface = wlan0
 interval = 3.0
 
-label-connected =  %essid%
-label-disconnected = " Disconnected"
+label-connected = Wifi: %essid%
+label-disconnected = Wifi: Disconnected
 
 [module/volume]
 type = internal/pulseaudio
@@ -112,23 +112,15 @@ type = internal/pulseaudio
 sink = alsa_output.pci-0000_00_1b.0.analog-stereo
 use-ui-max = false
 
-format-volume = <ramp-volume> <label-volume>
+format-volume = Volume: <label-volume>
 
-label-muted = 
-
-ramp-volume-0 = 
-ramp-volume-1 = 
-ramp-volume-2 = 
+label-muted = Volume: Muted
 
 [module/backlight]
 type = internal/xbacklight
-format = <ramp> <label>
+format = Brightness: <label>
 
 label = %percentage%%
-
-ramp-0 = 
-ramp-1 = 
-ramp-2 = 
 
 [module/battery]
 type = internal/battery
@@ -136,16 +128,9 @@ battery = BAT0
 adapter = ADP1
 poll-interval = 5
 
-format-discharging = <ramp-capacity>  <label-discharging>
-format-full = <ramp-capacity>  <label-full>
-format-charging =  <label-charging>
+format-discharging = Battery: <label-discharging>
+format-charging = Charging: <label-charging>
 
 label-discharging = %percentage%%
 label-charging = %percentage%%
 label-full = %percentage%%
-
-ramp-capacity-0 = 
-ramp-capacity-1 = 
-ramp-capacity-2 = 
-ramp-capacity-3 = 
-ramp-capacity-4 = 

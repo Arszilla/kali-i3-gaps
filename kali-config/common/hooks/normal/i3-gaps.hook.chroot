@@ -12,3 +12,4 @@ make
 make install
 
 cd ../..
+rm -rf i3-gaps

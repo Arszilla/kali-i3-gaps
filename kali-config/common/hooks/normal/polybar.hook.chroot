@@ -10,3 +10,4 @@ make -j$(nproc)
 make install
 
 cd ../..
+rm -rf polybar

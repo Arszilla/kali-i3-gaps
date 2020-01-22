@@ -59,7 +59,7 @@
     # right side of the screen.  Y is measured from the top and down respectevly.
     # The width can be negative. In this case the actual width is the
     # screen width minus the width defined in within the geometry option.
-    geometry = "320x5-10+32"
+    geometry = "320x5-15+40"
     shrink = yes
 
     # The transparency of the window. range: [0; 100]

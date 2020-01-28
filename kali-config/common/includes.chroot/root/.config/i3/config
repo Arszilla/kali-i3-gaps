@@ -6,19 +6,31 @@ set $mod Mod4
 ### Font
 font xtf:Hack Nerd Font:style=regular:size=10
 
-### Change focus
+### Change focus via jkl;
+bindsym $mod+j focus left
+bindsym $mod+k focus down
+bindsym $mod+l focus up
+bindsym $mod+semicolon focus right
+
+### Change focus via arrow keys
 bindsym $mod+Left focus left
 bindsym $mod+Down focus down
 bindsym $mod+Up focus up
 bindsym $mod+Right focus right
 
-### Move focused window
+### Move focused window via jkl;
+bindsym $mod+Shift+j move left
+bindsym $mod+Shift+k move down
+bindsym $mod+Shift+l move up
+bindsym $mod+Shift+semicolon move right
+
+### Move focused window via arrow keys
 bindsym $mod+Shift+Left move left
 bindsym $mod+Shift+Down move down
 bindsym $mod+Shift+Up move up
 bindsym $mod+Shift+Right move right
 
-### New window border style
+### Configure border style <normal|1pixel|pixel xx|none|pixel>
 new_window pixel 2
 new_float pixel 2
 
@@ -30,11 +42,15 @@ bindsym $mod+u border none
 bindsym $mod+y border pixel 2
 bindsym $mod+n border normal
 
-### Split orientation
+### Make focus follow the mouse
+focus_follows_mouse no
+
+### Split orientation for the next container
 bindsym $mod+h split h; exec notify-send 'Tiling horizontally'
 bindsym $mod+v split v; exec notify-send 'Tiling vertically'
+bindsym $mod+q split toggle
 
-### Change container layout (stacked, tabbed, toggle split)
+### Change container layout
 bindsym $mod+s layout stacking
 bindsym $mod+w layout tabbed
 bindsym $mod+e layout toggle split
@@ -42,52 +58,66 @@ bindsym $mod+e layout toggle split
 ### Change focus between tiling/floating windows
 bindsym $mod+space focus mode_toggle
 
-### Toggle tiling / floating
+### Toggle tiling/floating container
 bindsym $mod+Shift+space floating toggle
 
-### Kill focused window
-bindsym $mod+Shift+q kill
-
-### Enter fullscreen mode for the focused container
+### Toggle fullscreen mode for the focused container
 bindsym $mod+f fullscreen toggle
 
-### Reload the configuration file
-bindsym $mod+Shift+c reload
+### Toggle sticky container
+bindsym $mod+Shift+s sticky toggle
 
-### Restart i3 inplace (preserves your layout/session, can be used to upgrade i3)
-bindsym $mod+Shift+r restart
+### Focus at the parent container
+bindsym $mod+a focus parent
 
-### Exit i3 (logs you out of your X session)
-bindsym $mod+Shift+e exec "i3-nagbar -t warning -m 'You pressed the exit shortcut. Do you really want to exit i3? This will end your X session.' -B 'Yes, exit i3' 'i3-msg exit'"
+### Kill focused container
+bindsym $mod+Shift+q kill
 
-### Resize window
-bindsym $mod+r mode "resize"
+### Resize container
+bindsym $mod+r mode "Resize"
 mode "resize" {
-	bindsym Left resize shrink width 10 px or 10 ppt
+        # Resize using jkl;
+        bindsym j resize shrink width 5 px or 5 ppt
+        bindsym k resize grow height 5 px or 5 ppt
+        bindsym l resize shrink height 5 px or 5 ppt
+        bindsym semicolon resize grow width 5 px or 5 ppt
+
+        # Resize using arrow keys
+        bindsym Left resize shrink width 10 px or 10 ppt
         bindsym Down resize grow height 10 px or 10 ppt
         bindsym Up resize shrink height 10 px or 10 ppt
         bindsym Right resize grow width 10 px or 10 ppt
 
+        # Exit resize mode
         bindsym Return mode "default"
         bindsym Escape mode "default"
-        bindsym $mod+r mode "default"
 }
 
 ### System menu
 bindsym $mod+0 mode "$mode_system"
-set $mode_system (l)ock, (e)xit, (s)uspend, (h)ibernate, (r)eboot, (Shift+s)hutdown
+set $mode_system (l)ock, (e)xit, switch_(u)ser, (s)uspend, (h)ibernate, (r)eboot, (Shift+s)hutdown
 mode "$mode_system" {
     bindsym l exec --no-startup-id i3exit lock, mode "default"
-    bindsym e exec --no-startup-id i3exit logout, mode "default"
     bindsym s exec --no-startup-id i3exit suspend, mode "default"
+    bindsym u exec --no-startup-id i3exit switch_user, mode "default"
+    bindsym e exec --no-startup-id i3exit logout, mode "default"
     bindsym h exec --no-startup-id i3exit hibernate, mode "default"
     bindsym r exec --no-startup-id i3exit reboot, mode "default"
     bindsym Shift+s exec --no-startup-id i3exit shutdown, mode "default"
 
-    # back to normal: Enter or Escape
+    # Exit system mode
     bindsym Return mode "default"
     bindsym Escape mode "default"
 }
+
+### Reload the configuration file
+bindsym $mod+Shift+c reload
+
+### Restart i3 inplace
+bindsym $mod+Shift+r restart
+
+### Exit i3
+bindsym $mod+Shift+e exec "i3-nagbar -t warning -m 'You pressed the exit shortcut. Do you really want to exit i3? This will end your X session.' -b 'Yes, exit i3' 'i3-msg exit'"
 
 ## Workspaces
 ### Set workspace names
@@ -123,56 +153,114 @@ bindsym $mod+Shift+7 move container to workspace $ws7
 bindsym $mod+Shift+8 move container to workspace $ws8
 bindsym $mod+Shift+9 move container to workspace $ws9
 
-### Move focused window between screens
-bindsym $mod+o move workspace to output left
-bindsym $mod+p move workspace to output right
+### Navigate between workspaces
+bindsym $mod+Ctrl+Right workspace next
+bindsym $mod+Ctrl+Left workspace prev
+
+### Move focused containers between screens
+# bindsym $mod+o move workspace to output left
+# bindsym $mod+p move workspace to output right
+
+### Switch to workspace with urgent window automatically
+for_window [urgent=latest] focus
 
 ## Keybinds
 ### Application keybinds
-bindsym $mod+F2 exec firefox
-bindsym $mod+F3 exec pcmanfm
-bindsym $mod+F4 exec urxvt -e 'ranger'
+# bindsym $mod+t exec --no-startup-id pkill compton
+# bindsym $mod+Ctrl+t exec --no-startup-id compton -b
+bindsym $mod+F1 exec firefox
+bindsym $mod+F2 exec pcmanfm
+bindsym $mod+F3 exec terminal -e 'ranger'
 bindsym $mod+Return exec urxvt
 bindsym $mod+d exec rofi -show run
-bindsym $mod+Print exec flameshot gui
+bindsym $mod+Shift+d --release exec "killall dunst; exec notify-send 'Restarting dunst'"
+bindsym $mod+Print --release exec --no-startup-id kazam -f
+bindsym $mod+Shift+Print --release exec --no-startup-id kazam -s
+bindsym $mod+Ctrl+Print --release exec --no-startup-id kazam -a
 
 ### System keybinds
-bindsym XF86MonBrightnessUp exec "xbacklight -inc 5; notify-send 'brightness up'"
-bindsym XF86MonBrightnessDown exec "xbacklight -dec 5; notify-send 'brightness down'"
-bindsym XF86AudioRaiseVolume exec "amixer set Master 5%+; notify-send 'volume up'"
-bindsym XF86AudioLowerVolume exec "amixer set Master 5%-; notify-send 'volume down'"
-bindsym XF86AudioMute exec "amixer set Master toggle; notify-send 'volume toggled'"
-
-### Misc
-bindsym $mod+Shift+d --release exec "killall dunst; exec notify-send 'restart dunst'"
+# bindsym XF86MonBrightnessUp exec "xbacklight -inc 10; notify-send 'Brightness up'"
+# bindsym XF86MonBrightnessDown exec "xbacklight -dec 10; notify-send 'Brightness down'"
+# bindsym XF86AudioRaiseVolume exec "amixer set Master 5%+; notify-send 'Volume up'"
+# bindsym XF86AudioLowerVolume exec "amixer set Master 5%-; notify-send 'Volume down'"
+# bindsym XF86AudioMute exec "amixer set Master toggle; notify-send 'Volume toggled'"
+# bindsym XF86AudioPlay exec playerctl play-pause
+# bindsym XF86AudioNext exec playerctl next
+# bindsym XF86AudioPrev exec playerctl previous
 
 ## Execs
-exec_always --no-startup-id numlockx on
-exec_always setxkbmap -model pc105 -layout us,tr -option grp:shifts_toggle
-exec --no-startup-id nitrogen --restore; sleep 1
-exec_always --no-startup-id .config/polybar/launch.sh
-exec_always compton --config .config/compton/compton.conf
+# exec_always compton --config .config/compton/compton.conf
+# exec --no-startup-id pa-applet
+# exec --no-startup-id pulseaudio
+exec --no-startup-id /usr/lib/polkit-gnome/polkit-gnome-authentication-agent-1
+exec --no-startup-id nitrogen --restore; sleep 1;
+exec --no-startup-id nm-applet
 exec --no-startup-id xfce4-power-manager
-exec_always unclutter -idle 5
 exec xrdb -load .Xresources
+exec_always --no-startup-id .config/polybar/launch.sh
+exec_always --no-startup-id ff-theme-util
+exec_always --no-startup-id fix_xcursor
+exec_always --no-startup-id numlockx on
 
 ## i3-gaps
 ### Set inner/outer gaps
 gaps inner 10
 gaps outer 10
 
-### Smart borders (draw borders around container only if it is not the only container on this workspace)
+### Set inner/outer gaps for current/all & set/plus/minus <px>
+# gaps inner all set 10
+# gaps outer all plus 5
+
+### Smart gaps
+smart_gaps on
+
+### Smart borders
 smart_borders on
 
-## i3 Appearance
-set $bg-color 	           #F9F9F9
-set $inactive-bg-color     #333333
-set $text-color            #333333
-set $inactive-text-color   #F9F9F9
-set $urgent-bg-color       #1A1A1A
+### Modify inner/outer gaps.
+set $mode_gaps Gaps: (o) outer, (i) inner
+set $mode_gaps_outer Outer Gaps: +|-|0 (local), Shift + +|-|0 (global)
+set $mode_gaps_inner Inner Gaps: +|-|0 (local), Shift + +|-|0 (global)
+bindsym $mod+Shift+g mode "$mode_gaps"
 
-#                         border               background           text
-client.focused            $bg-color            $bg-color            $text-color
-client.unfocused          $inactive-bg-color   $inactive-bg-color   $inactive-text-color
-client.focused_inactive   $inactive-bg-color   $inactive-bg-color   $inactive-text-color
-client.urgent             $urgent-bg-color     $urgent-bg-color     $text-color
+mode "$mode_gaps" {
+        bindsym o      mode "$mode_gaps_outer"
+        bindsym i      mode "$mode_gaps_inner"
+        bindsym Return mode "default"
+        bindsym Escape mode "default"
+}
+mode "$mode_gaps_inner" {
+        bindsym plus  gaps inner current plus 5
+        bindsym minus gaps inner current minus 5
+        bindsym 0     gaps inner current set 0
+
+        bindsym Shift+plus  gaps inner all plus 5
+        bindsym Shift+minus gaps inner all minus 5
+        bindsym Shift+0     gaps inner all set 0
+
+        bindsym Return mode "default"
+        bindsym Escape mode "default"
+}
+mode "$mode_gaps_outer" {
+        bindsym plus  gaps outer current plus 5
+        bindsym minus gaps outer current minus 5
+        bindsym 0     gaps outer current set 0
+
+        bindsym Shift+plus  gaps outer all plus 5
+        bindsym Shift+minus gaps outer all minus 5
+        bindsym Shift+0     gaps outer all set 0
+
+        bindsym Return mode "default"
+        bindsym Escape mode "default"
+}
+
+## Appearance
+### Theme colors
+# class                   border  backgr. text    indic.   child_border
+  client.focused          #556064 #556064 #80FFF9 #FDF6E3
+  client.focused_inactive #2F3D44 #2F3D44 #1ABC9C #454948
+  client.unfocused        #2F3D44 #2F3D44 #1ABC9C #454948
+  client.urgent           #CB4B16 #FDF6E3 #1ABC9C #268BD2
+  client.placeholder      #000000 #0c0c0c #ffffff #000000
+
+  client.background       #2B2C2B

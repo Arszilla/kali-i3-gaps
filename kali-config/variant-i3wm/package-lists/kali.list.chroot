@@ -52,17 +52,12 @@ xcb-proto
 alsa-utils
 compton
 curl
-dunst
-flameshot
-gdebi
 git
-gobuster
-gucharmap
 htop
+kazam
 lightdm
 lxappearance
 lxrandr
-neofetch
 network-manager
 nitrogen
 numlockx
@@ -70,8 +65,5 @@ pcmanfm
 ranger
 rofi
 rxvt-unicode
-seclists
-steghide
-synaptic
 unclutter
 xfce4-power-manager

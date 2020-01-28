@@ -23,12 +23,10 @@ padding-right = 2
 module-margin = 1
 
 font-0 = Hack Nerd Font:style=regular:pixelsize=10;2
-font-1 = Material Icons:pixelsize=10;2
-font-2 = FontAwesome:pixelsize=10;2
 
 modules-left = workspaces
 modules-center = date
-modules-right = keyboard network volume backlight battery
+modules-right = wired-network wireless-network volume backlight battery
 
 separator = %{F#333333}|%{F-}
 
@@ -82,23 +80,19 @@ interval = 1.0
 
 label = %date% %{F#4a4a4a}| %{F-}%time%
 
-date = %a, %b %d
-date-alt = %A, %B %d, %Y
+date = %A, %B %d, %Y
 
-time = %H:%M
-time-alt = %H:%M:%S
+time = %H:%M:%S
 
-[module/keyboard]
-type = internal/xkeyboard
+[module/wired-network]
+type = internal/network
+interface = eth0
+interval = 3.0
 
-format = <label-layout>
+label-connected = LAN: %essid%
+label-disconnected = LAN: Disconnected
 
-label-layout = %layout%
-
-layout-icon-0 = tr
-layout-icon-1 = us
-
-[module/network]
+[module/wireless-network]
 type = internal/network
 interface = wlan0
 interval = 3.0
@@ -118,6 +112,7 @@ label-muted = Volume: Muted
 
 [module/backlight]
 type = internal/xbacklight
+card = intel_backlight
 format = Brightness: <label>
 
 label = %percentage%%

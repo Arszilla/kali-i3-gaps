@@ -7,8 +7,8 @@ customizable and easy to use; especially as a guy with large hands and long
 fingers.
 
 ## Building
-To build this ISO first install the dependencies, themn either clone the Github
-or Gitlab repo. Afterwards, `cd` into `kali-i3-gaps` and start the build script.
+To build this ISO first install the dependencies, then clone the Git repo from either
+Github or Gitlab. Afterwards, `cd` into `kali-i3-gaps` and start the build script.
 
 ```
 $ sudo apt install -y curl git live-build cdebootstrap
@@ -30,6 +30,13 @@ If you are on a non-Kali Debian based system, check out Kali's
 [guide](https://www.kali.org/docs/development/live-build-a-custom-kali-iso/)
 on building the ISO. Once the script is finished, your image should be in
 `~/kali-i3-gaps/images`.
+
+## Using the image
+
+You can create a VM directly in VirtualBox with the ISO. Common issues with
+VirtualBox can be found [here](https://www.virtualbox.org/manual/ch12.html) and
+community provided ressources [here] (https://forums.virtualbox.org/) .
+
 
 ## Bug Reports
 I've been working on this since late November. There might be some errors here

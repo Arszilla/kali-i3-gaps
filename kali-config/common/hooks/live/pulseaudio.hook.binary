@@ -1,0 +1,5 @@
+#!/bin/sh
+
+timeout 15 pulseaudio -vvv
+
+rm -rf .pulse-cookieaa

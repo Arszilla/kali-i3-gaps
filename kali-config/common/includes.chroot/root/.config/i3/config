@@ -4,7 +4,7 @@
 set $mod Mod4
 
 ### Font
-font xtf:Hack Nerd Font:style=regular:size=10
+font pango:monospace 9
 
 ### Change focus via jkl;
 bindsym $mod+j focus left
@@ -74,7 +74,7 @@ bindsym $mod+a focus parent
 bindsym $mod+Shift+q kill
 
 ### Resize container
-bindsym $mod+r mode "Resize"
+bindsym $mod+r mode "resize"
 mode "resize" {
         # Resize using jkl;
         bindsym j resize shrink width 5 px or 5 ppt
@@ -170,13 +170,13 @@ for_window [urgent=latest] focus
 # bindsym $mod+Ctrl+t exec --no-startup-id compton -b
 bindsym $mod+F1 exec firefox
 bindsym $mod+F2 exec pcmanfm
-bindsym $mod+F3 exec terminal -e 'ranger'
+bindsym $mod+F3 exec urxvt -e 'ranger'
 bindsym $mod+Return exec urxvt
 bindsym $mod+d exec rofi -show run
 bindsym $mod+Shift+d --release exec "killall dunst; exec notify-send 'Restarting dunst'"
-bindsym $mod+Print --release exec --no-startup-id kazam -f
-bindsym $mod+Shift+Print --release exec --no-startup-id kazam -s
-bindsym $mod+Ctrl+Print --release exec --no-startup-id kazam -a
+bindsym $mod+Print --release exec --no-startup-id scrot '%Y-%m-%d_$wx$h.png' -q 100 -e 'mv $f ~/Pictures'
+bindsym $mod+Shift+Print --release exec --no-startup-id scrot -w '%Y-%m-%d_$wx$h.png' -q 100 -e 'mv $f ~/Pictures'
+bindsym $mod+Ctrl+Print --release exec --no-startup-id scrot -s '%Y-%m-%d_$wx$h.png' -q 100 -e 'mv $f ~/Pictures'
 
 ### System keybinds
 # bindsym XF86MonBrightnessUp exec "xbacklight -inc 10; notify-send 'Brightness up'"
@@ -189,18 +189,17 @@ bindsym $mod+Ctrl+Print --release exec --no-startup-id kazam -a
 # bindsym XF86AudioPrev exec playerctl previous
 
 ## Execs
-# exec_always compton --config .config/compton/compton.conf
-# exec --no-startup-id pa-applet
-# exec --no-startup-id pulseaudio
 exec --no-startup-id /usr/lib/polkit-gnome/polkit-gnome-authentication-agent-1
 exec --no-startup-id nitrogen --restore; sleep 1;
 exec --no-startup-id nm-applet
+exec --no-startup-id pa-applet
+exec --no-startup-id pulseaudio
 exec --no-startup-id xfce4-power-manager
-exec xrdb -load .Xresources
-exec_always --no-startup-id .config/polybar/launch.sh
 exec_always --no-startup-id ff-theme-util
 exec_always --no-startup-id fix_xcursor
 exec_always --no-startup-id numlockx on
+exec_always compton --config .config/compton/compton.conf
+exec_always xrdb -load .Xresources
 
 ## i3-gaps
 ### Set inner/outer gaps
@@ -210,9 +209,6 @@ gaps outer 10
 ### Set inner/outer gaps for current/all & set/plus/minus <px>
 # gaps inner all set 10
 # gaps outer all plus 5
-
-### Smart gaps
-smart_gaps on
 
 ### Smart borders
 smart_borders on
@@ -254,13 +250,39 @@ mode "$mode_gaps_outer" {
         bindsym Escape mode "default"
 }
 
-## Appearance
-### Theme colors
-# class                   border  backgr. text    indic.   child_border
-  client.focused          #556064 #556064 #80FFF9 #FDF6E3
-  client.focused_inactive #2F3D44 #2F3D44 #1ABC9C #454948
-  client.unfocused        #2F3D44 #2F3D44 #1ABC9C #454948
-  client.urgent           #CB4B16 #FDF6E3 #1ABC9C #268BD2
-  client.placeholder      #000000 #0c0c0c #ffffff #000000
+## i3bar
+bar {
+	i3bar_command i3bar
+	status_command i3status --config .config/i3status/i3status.conf
+	position top
 
-  client.background       #2B2C2B
+	bindsym button4 nop
+	bindsym button5 nop
+	strip_workspace_numbers yes
+
+    colors {
+        background #23252e
+        statusline #ffffff
+        separator  #ffffff
+
+#                      	    border  backgr. text
+        focused_workspace  #ffffff #23252e #ffffff
+        active_workspace   #ffffff #23252e #ffffff
+        inactive_workspace #8f8f8f #23252e #8f8f8f
+        binding_mode       #ffffff #23252e #ffffff
+        urgent_workspace   #16a085 #23252e #ec0101
+    }
+}
+
+### Appearance
+set $bg-color 	           #ffffff
+set $inactive-bg-color     #23252e
+set $text-color            #23252e
+set $inactive-text-color   #ffffff
+set $urgent-bg-color       #ec0101
+
+#                         border               background           text
+client.focused            $bg-color            $bg-color            $text-color
+client.unfocused          $inactive-bg-color   $inactive-bg-color   $inactive-text-color
+client.focused_inactive   $inactive-bg-color   $inactive-bg-color   $inactive-text-color
+client.urgent             $urgent-bg-color     $urgent-bg-color     $text-color

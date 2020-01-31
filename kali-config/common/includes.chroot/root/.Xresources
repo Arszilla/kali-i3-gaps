@@ -5,51 +5,27 @@
 !(_)_/|_/_/   \___/____/\____/\__,_/_/   \___/\___/____/
 !
 
-#define base00 #333333
-#define base01 #383c3e
-#define base02 #53585b
-#define base03 #666666
-#define base04 #cdcdcd
-#define base05 #f9f9f9
-#define base06 #dddddd
-#define base07 #e5e5e5
-#define base08 #d72638
-#define base09 #eb8413
-#define base0A #f19d1a
-#define base0B #88b92d
-#define base0C #1ba595
-#define base0D #1e8bac
-#define base0E #be4264
-#define base0F #c85e0d
-
-*foreground:   base05
-#ifdef background_opacity
-*background:   [background_opacity]base00
-#else
-*background:   base00
-#endif
-*cursorColor:  base05
-
-*color0:       base00
-*color1:       base08
-*color2:       base0B
-*color3:       base0A
-*color4:       base0D
-*color5:       base0E
-*color6:       base0C
-*color7:       base05
-
-*color8:       base03
-*color9:       base08
-*color10:      base0B
-*color11:      base0A
-*color12:      base0D
-*color13:      base0E
-*color14:      base0C
-*color15:      base07
+*background: #23252e
+*foreground: #ffffff
+*color0:     #1f2229
+*color1:     #d41919
+*color2:     #5ebdab
+*color3:     #fea44c
+*color4:     #367bf0
+*color5:     #bf2e5d
+*color6:     #49aee6
+*color7:     #e6e6e6
+*color8:     #8c42ab
+*color9:     #ec0101
+*color10:    #47d4b9
+*color11:    #ff8a18
+*color12:    #277fff
+*color13:    #d71655
+*color14:    #05a1f7
+*color15:    #ffffff
 
 ! URXVT
-URxvt.font: xft:Hack Nerd Font:style=regular:size=10
+URxvt.font: xft:monospace:style=regular:size=10
 URxvt.scrollBar: false
 URxvt.cursorBlink: true
 URxvt.internalBorder: 30
@@ -74,9 +50,9 @@ URxvt.keysym.Shift-Control-C: eval:selection_to_clipboard
 
 ! ROFI
 rofi.color-enabled: true
-rofi.color-window: base00, base00, base00
-rofi.color-normal: base00, base05, base00, base05, base00
-rofi.color-active: base07, base09, #000, #000, #000
+rofi.color-window: #1f2229, #1f2229, #1f2229
+rofi.color-normal: #1f2229, #ffffff, #1f2229, #ffffff, #1f2229
+rofi.color-active: #e6e6e6, #ec0101, #000, #000, #000
 rofi.color-urgent: #e12a36, #dd2a4b, #1b2b34
 rofi.font: Hack Nerd Font Regular 11
 rofi.lines: 5

@@ -1,4 +1,8 @@
 # Kali i3-gaps | Custom ISO
+
+## Disclaimer
+The project has moved to [Gitlab](https://gitlab.com/Arszilla/kali-i3-gaps).
+
 ## Introduction
 This is my take on Kali, using i3-gaps as a WM. I've done this because I've
 loved how i3-gaps worked on my new (well, it was new back in May 2019) laptop.

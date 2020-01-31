@@ -35,8 +35,26 @@ on building the ISO. Once the script is finished, your image should be in
 
 You can create a VM directly in VirtualBox with the ISO. Common issues with
 VirtualBox can be found [here](https://www.virtualbox.org/manual/ch12.html) and
-community provided ressources [here] (https://forums.virtualbox.org/) .
+community provided ressources [here](https://forums.virtualbox.org/) .
 
+You can burn the iso to an optical drive using the following: 
+`wodim -v dev=/dev/sr0 -eject -sao <file>` where kali_XXYY is the filename including extension.
+
+In order to burn the image to an USB drive:
+`dd if=<file> of=<device> bs=4M; sync` 
+Where <file> is the iso filename including extension and <device> corresponds to the device label.
+You can find your device label as follows:
+```
+$ cd /dev
+$ ls -l | grep sd
+```
+SDA corresponds to the drive where the OS is running
+SDB corresponds to the next drive the OS has found (either existing additional storage
+or USB)
+Naming continues SDC, SDD, SDE ...
+
+The numbers which may appear (SDA, SDA1, SDA2 etc.) correspond to partitions on a given drive.
+For the command, you want to use the entire drive.
 
 ## Bug Reports
 I've been working on this since late November. There might be some errors here
